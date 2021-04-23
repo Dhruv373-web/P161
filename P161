@@ -1,0 +1,40 @@
+<script
+src="https://aframe.io/releases/1.0.4/aframe.min.js">
+</script>
+<script
+src="https://cdn.jsdelivr.net/gh/n5ro/aframe-physics
+-system@v4.0.1/dist/aframe-physics-system.min.js"
+> </script>
+
+AFRAME.registerComponent("bullets", {
+  init: function () {
+    this.shootBullet();
+  },
+  shootBullet: function () {
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "z") {
+        var bullet = document.createElement("a-entity");
+
+        bullet.setAttribute("geometry", {
+          primitive: "sphere",
+          radius: 0.1,
+        });
+        bullet.setAttribute("position", {
+          x: pos.x,
+          y: pos.y,
+          z: pos.z,
+        });
+
+ var direction = new THREE.Vector3();
+        camera.getWorldDirection(direction);
+
+        //set the velocity and it's direction
+        bullet.setAttribute("velocity", direction.multiplyScalar(-10));
+
+        var scene = document.querySelector("#scene");
+
+        scene.appendChild(bullet);
+      }
+    });
+  },
+});
